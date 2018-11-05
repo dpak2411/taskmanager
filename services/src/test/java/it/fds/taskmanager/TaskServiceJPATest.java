@@ -97,7 +97,11 @@ public class TaskServiceJPATest extends Assert{
         taskService.postponeTask(t1.getUuid(), 10);
         List<Task> list = tasksRepo.findTaskToRestore(); 
         assertEquals(0, list.size());
-             
+        t.setTitle("Test task4");
+        t.setStatus(TaskState.NEW.toString().toUpperCase());
+        TaskDTO t2 = taskService.saveTask(t);
+        List<Task>  tnotpostponed= tasksRepo.findAllExcludePostponed();
+        assertEquals(1, tnotpostponed.size());             
     }
     
 
